@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1703.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valens_Survey_Management_API", "Valens_Survey_Management_API\Valens_Survey_Management_API.csproj", "{3F78BAF0-7C56-45D7-8D05-AD87BCD5252F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "New Folder", "New Folder", "{0FBE4A1D-FA5C-4CF1-8BBC-BB528BA09A6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValensSurveyManagementAPI", "ValensSurveyManagementAPI\ValensSurveyManagementAPI.csproj", "{BC8F2A5B-BC89-4EA1-A3BA-298905ED8A1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3F78BAF0-7C56-45D7-8D05-AD87BCD5252F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F78BAF0-7C56-45D7-8D05-AD87BCD5252F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F78BAF0-7C56-45D7-8D05-AD87BCD5252F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F78BAF0-7C56-45D7-8D05-AD87BCD5252F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC8F2A5B-BC89-4EA1-A3BA-298905ED8A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC8F2A5B-BC89-4EA1-A3BA-298905ED8A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC8F2A5B-BC89-4EA1-A3BA-298905ED8A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC8F2A5B-BC89-4EA1-A3BA-298905ED8A1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
