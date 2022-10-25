@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  mssql:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    ports:
+      - 1433:1433
+    environment:
+       ACCEPT_EULA: 1
+       MSSQL_SA_PASSWORD: MSSQLTESTPASSWORD123$$
+    restart: unless-stopped
+    volumes:
+      - db:/var/lib/mssql
+  mssql-tools:
+    image: mcr.microsoft.com/mssql-tools:latest
+    depends_on:
+      - mssql
+    volumes:
+      - ./mssql-scripts:/opt/mssql-scripts:ro
+    command: bash /opt/mssql-scripts/entrypoint.sh mssql SA MSSQLTESTPASSWORD123$$ TEST_DATABASE
+volumes:
+  db:
+    
