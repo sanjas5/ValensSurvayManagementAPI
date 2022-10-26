@@ -1,19 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System. Linq;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using ValensSurveyManagementAPI;
 
 namespace Valens_Survey_Management_API.Controllers
 {
+    //public override string ConnectionString { get; set; }
+  
+       
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    [ApiController]
+    public class ValuesController : ControllerBase
     {
+        //public List<UserInfo> userList = new List<UserInfo>();
+
+        private readonly  ILogger<ValuesController>  _logger;
+        private readonly IDbConnection _context;
+        private readonly IConfiguration _config;
+
+        public ValuesController(IConfiguration config)
+        {
+            _config = config;
+        }
+
+
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<List<User>>>Get()
         {
-            return new string[] { "value1", "value2" };
+            using var connection = new SqlConnection(_config.GetConnectionString("DatabaseConnection"));
+            var users = await connection.QueryAsync<User>("select * from user");
+            return Ok(users);
+           
         }
 
         // GET api/values/5
