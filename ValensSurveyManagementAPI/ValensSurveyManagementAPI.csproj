@@ -13,24 +13,40 @@
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.24.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.24.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="Dapper" />
     <None Remove="Models\" />
-    <None Remove="Extensions\" />
     <None Remove="System.Data.SqlClient" />
     <None Remove="Common\" />
-    <None Remove="IService\" />
-    <None Remove="Service\" />
     <None Remove="BCrypt.Net-Next" />
+    <None Remove="Context\" />
+    <None Remove="Contracts\" />
+    <None Remove="Repository\" />
+    <None Remove="Dto\" />
+    <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <None Remove="Microsoft.IdentityModel.Tokens" />
+    <None Remove="System.IdentityModel.Tokens.Jwt" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="Helper\" />
+    <None Remove="Models\Users\" />
+    <None Remove="Models\Surveys\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Common\" />
-    <Folder Include="IService\" />
-    <Folder Include="Service\" />
+    <Folder Include="Context\" />
+    <Folder Include="Contracts\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Dto\" />
+    <Folder Include="Helper\" />
+    <Folder Include="Models\Users\" />
+    <Folder Include="Models\Surveys\" />
   </ItemGroup>
 </Project>
