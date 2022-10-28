@@ -1,9 +1,30 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿//using ValensSurveyManagementAPI.Extension;
+
+using ValensSurveyManagementAPI.Context;
+using ValensSurveyManagementAPI.Contracts;
+using ValensSurveyManagementAPI.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using ValensSurveyManagementAPI.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<DapperContext>();
+builder.Services.AddSingleton<AccesTokenGenerator>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISurveyRepository, SurveyRepository>();
+builder.Services.AddScoped<IPasswordHasher, BycriptPasswordHasherRepository>();
+AuthenticationConfiguration authenticationConfiguration = new AuthenticationConfiguration();
+builder.Configuration.Bind("Authentication", authenticationConfiguration);
+builder.Services.AddSingleton(authenticationConfiguration);
+
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -19,6 +40,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 
