@@ -17,6 +17,7 @@ namespace ValensSurveyManagementAPI.Models
 
         public string GenerateToken(User user)
         {
+            // Those string parameters should be stored in appsettings.json file
             SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("$2a$10$llw0G6IyibUob8h5XRt9xuRczaGdCm/AiV6SSjf5v78XS824EGbh"));
             SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             List<Claim> claims = new List<Claim>()
@@ -27,8 +28,6 @@ namespace ValensSurveyManagementAPI.Models
 
             };
 
-
-            // Those parameters should be stored in appsettings.json file
             JwtSecurityToken token = new JwtSecurityToken("http://localhost:49801/", "http://localhost:49801/",
                 claims,
                 DateTime.UtcNow,
