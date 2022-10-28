@@ -1,16 +1,8 @@
- CREATE TABLE [TEST_DATABASE].[dbo].[User]  
-(  
-    id INT NOT NULL UNIQUE,
+ CREATE TABLE [TEST_DATABASE].[dbo].[User] (  
+    id INT PRIMARY KEY IDENTITY(1,1),
     FullName VARCHAR(256) NOT NULL,
-    Email VARCHAR(256) NOT NULL,
-    Password NVARCHAR(32),
-    Role VARCHAR NOT NULL  
+    Email NVARCHAR(256) NOT NULL,
+    Password NVARCHAR(MAX),
+    Role VARCHAR(32) NOT NULL  
 );
 
-
-ALTER TABLE [TEST_DATABASE].[dbo].[User] ALTER COLUMN userRole VARCHAR(256) NOT NULL
-
-EXEC sp_rename 'User.userFullName', 'fullName'
-EXEC sp_rename 'User.userEmail', 'email'
-EXEC sp_rename 'User.userPassword', 'password'
-EXEC sp_rename 'User.userRole', 'role'
