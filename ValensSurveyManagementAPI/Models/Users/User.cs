@@ -9,11 +9,9 @@ namespace ValensSurveyManagementAPI
         public int? Id { get; set; }
 
         [Required]
-        [Display(Name = "Full Name")]
         public String FullName { get; set; }
 
         [Required]
-        [Display(Name = "Email")]
         [EmailAddress]
         public String Email { get; set; }
 

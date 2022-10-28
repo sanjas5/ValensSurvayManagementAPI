@@ -5,6 +5,8 @@ namespace ValensSurveyManagementAPI.Models
     {
         public int id { get; set; }
         public int questionId { get; set; }
+        public int text { get; set; }
+
     }
 }
 

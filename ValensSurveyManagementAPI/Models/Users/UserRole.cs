@@ -1,10 +1,10 @@
 ﻿using System;
 namespace ValensSurveyManagementAPI.Models
 {
-    public class UserRole
+    public static class UserRole
     {
-        public string defaultUser;
-        public string adminUser;
+        public const string Administrator = "Administrator";
+        public const string DefaultUser = "DefaultUser";
     }
 }
 

@@ -28,6 +28,7 @@ namespace ValensSurveyManagementAPI.Controllers
             
         }
 
+        // Get all surveys
         [HttpGet]
         public async Task<ActionResult<List<Survey>>> GetAllSurveys()
         {
@@ -46,6 +47,8 @@ namespace ValensSurveyManagementAPI.Controllers
             }
         }
 
+        // Get one survey
+        [Authorize(Roles = UserRole.DefaultUser)]
         [HttpGet("get-survey/{surveyId}")]
         public async Task<ActionResult<Survey>> GetOneSurvey(int surveyId)
         {
@@ -65,7 +68,8 @@ namespace ValensSurveyManagementAPI.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
+        // Create a survey
+        [Authorize(Roles = UserRole.Administrator)]
         [HttpPost("create-survey")]
         public async Task<IActionResult> AddSurvey([FromBody] SurveyCreateUpdateDto survey)
         {
@@ -81,6 +85,46 @@ namespace ValensSurveyManagementAPI.Controllers
                 _logger.LogError($"Something went wrong inside this action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
+        }
+
+        // Update a survey
+        [Authorize(Roles = UserRole.Administrator)]
+        [HttpPut("update-survey/{surveyId}")]
+        public async Task<ActionResult<List<User>>> UpdateSurvey([FromBody] SurveyCreateUpdateDto survey, int surveyId)
+        {
+            try
+            {
+                var updatedSurvey = await _surveyRepo.UpdateSurvey(survey, surveyId);
+
+
+                return Ok(updatedSurvey);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside this action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        // Delete a survey
+        [Authorize(Roles = UserRole.Administrator)]
+        [HttpDelete("delete-survey/{surveyId}")]
+        public async Task<ActionResult> Delete(int surveyId)
+        {
+            try
+            {
+                await _surveyRepo.DeleteSurvey(surveyId);
+
+                return Ok($"Deleted survey with id={surveyId}");
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside this action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+
         }
     }
 }

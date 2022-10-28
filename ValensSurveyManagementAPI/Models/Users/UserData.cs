@@ -9,7 +9,6 @@ namespace ValensSurveyManagementAPI.Models.Users
         public Guid Id { get; set; }
 
         [Required]
-        [Display(Name = "Email")]
         [EmailAddress]
         public String Email { get; set; }
 

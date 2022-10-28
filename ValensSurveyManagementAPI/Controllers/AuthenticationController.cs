@@ -12,14 +12,14 @@ namespace ValensSurveyManagementAPI.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository _userRepo;
         private readonly IPasswordHasher _passwordHasher;
         private readonly AccesTokenGenerator _accesTokenGenerator;
 
-        public AuthenticationController(IUserRepository userRepository, IPasswordHasher passwordHasher,
+        public AuthenticationController(IUserRepository userRepo, IPasswordHasher passwordHasher,
             AccesTokenGenerator accesTokenGenerator)
         {
-            _userRepository = userRepository;
+            _userRepo = userRepo;
             _passwordHasher = passwordHasher;
             _accesTokenGenerator = accesTokenGenerator;
         }
@@ -32,7 +32,7 @@ namespace ValensSurveyManagementAPI.Controllers
                 return BadRequest();
             }
 
-            var existingUserData = await _userRepository.GetUserByEmail(registerRequest.Email);
+            var existingUserData = await _userRepo.GetUserByEmail(registerRequest.Email);
 
             if (existingUserData != null)
             {
@@ -46,7 +46,7 @@ namespace ValensSurveyManagementAPI.Controllers
                 PasswordHashed = passwordHashed
             };
 
-            var user = await _userRepository.CreateUser(registerRequest);
+            var user = await _userRepo.CreateUser(registerRequest);
             return Ok(user);
 
 
@@ -60,7 +60,7 @@ namespace ValensSurveyManagementAPI.Controllers
                 return BadRequest();
             }
 
-            var existingUserData = await _userRepository.GetUserByEmail(loginRequest.Email);
+            var existingUserData = await _userRepo.GetUserByEmail(loginRequest.Email);
 
 
             Console.WriteLine(existingUserData);

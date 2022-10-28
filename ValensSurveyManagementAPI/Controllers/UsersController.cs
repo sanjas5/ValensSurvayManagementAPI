@@ -102,7 +102,7 @@ namespace Valens_Survey_Management_API.Controllers
 
 
         // Update a user
-        //[Authorize]
+        [Authorize]
         [HttpPut("update-user/{userId}")]
         public async Task<ActionResult<List<User>>> UpdateUser([FromBody] UserCreateUpdateDto user, int userId)
         {
@@ -122,7 +122,7 @@ namespace Valens_Survey_Management_API.Controllers
         }
 
         // Delete a user
-        //[Authorize]
+        [Authorize]
         [HttpDelete("delete-user/{userId}")]
         public async Task<ActionResult> Delete(int userId)
         {
