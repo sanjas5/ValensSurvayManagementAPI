@@ -35,7 +35,7 @@ namespace Valens_Survey_Management_API.Controllers
             _userRepo = userRepo;
         }
 
-        // Get all users from db
+        // Get all users from DB
         [AllowAnonymous]
         [HttpGet("get-all")]
         public async Task<ActionResult<List<User>>>GetAllUsers()
@@ -74,7 +74,7 @@ namespace Valens_Survey_Management_API.Controllers
             }
         }
 
-        // Create new user
+        // Create a new user
         [AllowAnonymous]
         [HttpPost("create-user")]
         public async Task<IActionResult> AddUser([FromBody] UserCreateUpdateDto user)
@@ -101,7 +101,7 @@ namespace Valens_Survey_Management_API.Controllers
         }
 
 
-        // Update user
+        // Update a user
         //[Authorize]
         [HttpPut("update-user/{userId}")]
         public async Task<ActionResult<List<User>>> UpdateUser([FromBody] UserCreateUpdateDto user, int userId)
@@ -121,7 +121,7 @@ namespace Valens_Survey_Management_API.Controllers
             }
         }
 
-        // Delete user
+        // Delete a user
         //[Authorize]
         [HttpDelete("delete-user/{userId}")]
         public async Task<ActionResult> Delete(int userId)

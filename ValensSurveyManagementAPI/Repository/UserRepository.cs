@@ -56,8 +56,7 @@ namespace ValensSurveyManagementAPI.Repository
 
         public async Task<User> CreateUser([FromBody] UserCreateUpdateDto user)
         {
-            User usr = new User();
-            usr.FullName = user.FullName; usr.Email = user.Email; usr.Password = user.Password;
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
             var query = "INSERT INTO [dbo].[User] (FullName, Email, Password, Role) " +
                         "VALUES (@FullName, @Email, @Password, @Role) SELECT CAST(SCOPE_IDENTITY() as int)";
@@ -87,7 +86,7 @@ namespace ValensSurveyManagementAPI.Repository
         public async Task<User> UpdateUser([FromBody] UserCreateUpdateDto user, int id)
         {
 
-            user.Password = BC.HashPassword(user.Password);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
             var query = "UPDATE [dbo].[User] SET FullName = @FullName, Email = @Email, Password = @Password, Role = @Role WHERE id = @Id";
 

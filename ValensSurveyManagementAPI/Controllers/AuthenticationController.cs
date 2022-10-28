@@ -39,7 +39,7 @@ namespace ValensSurveyManagementAPI.Controllers
                 return Conflict();
             }
 
-            string passwordHashed = _passwordHasher.HashPassword(registerRequest.Password);
+            string passwordHashed = BCrypt.Net.BCrypt.HashPassword(registerRequest.Password);
             UserData newUser = new UserData()
             {
                 Email = registerRequest.Email,
