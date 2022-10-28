@@ -14,14 +14,11 @@ using NuGet.Protocol.Core.Types;
 using ValensSurveyManagementAPI;
 using ValensSurveyManagementAPI.Contracts;
 using ValensSurveyManagementAPI.Dto;
-using ValensSurveyManagementAPI.Helper;
 using ValensSurveyManagementAPI.Models;
-using BC = BCrypt.Net.BCrypt;
 
 namespace Valens_Survey_Management_API.Controllers
 {
 
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -30,67 +27,17 @@ namespace Valens_Survey_Management_API.Controllers
         private readonly IDbConnection _context;
         private readonly IConfiguration _config;
         private readonly IUserRepository _userRepo;
-        private readonly JwtService _jwtService;
 
-        public UsersController(IConfiguration config, ILogger<UsersController> logger, IUserRepository userRepo, JwtService jwtService)
+        public UsersController(IConfiguration config, ILogger<UsersController> logger, IUserRepository userRepo)
         {
             _config = config;
             _logger = logger;
             _userRepo = userRepo;
-            _jwtService = jwtService;
         }
 
-
-        //[AllowAnonymous]
-        //[HttpPost("authenticate")]
-        //public IActionResult Authenticate(AuthenticateRequest model)
-        //{
-        //    var response = _userService.Authenticate(model);
-        //    return Ok(response);
-        //}
-
-
-        //[AllowAnonymous]
-        //[HttpPost("register")]
-        //public IActionResult Register(RegisterRequest model)
-        //{
-        //    _userService.Register(model);
-        //    return Ok(new { message = "Registration successful" });
-        //}
-
-
-
-        //For admin Only
-        [HttpGet]
-        [Route("Admins")]
-        [Authorize(Roles = "Admin")]
-        public IActionResult AdminEndPoint()
-        {
-            var currentUser = GetCurrentUser();
-            return Ok($"Hi you are an {currentUser.Role}");
-        }
-        private UserModel GetCurrentUser()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                var userClaims = identity.Claims;
-                return new UserModel
-                {
-                    Email = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
-                    Role = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value
-                };
-            }
-            return null;
-        }
-
-
-        /// <summary>
-        /// Get all users from the database
-        /// </summary>
-        /// <returns></returns>
-        // GET: api/values
-        [HttpGet]
+        // Get all users from db
+        [AllowAnonymous]
+        [HttpGet("get-all")]
         public async Task<ActionResult<List<User>>>GetAllUsers()
         {
             try
@@ -106,12 +53,8 @@ namespace Valens_Survey_Management_API.Controllers
             }
         }
 
-        /// <summary>
-        /// Get user by id
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        // GET api/values/5
+        // Get user by id
+        [AllowAnonymous]
         [HttpGet("get-user/{userId}")]
         public async Task<ActionResult<User>> GetOneUser(int userId)
         {
@@ -131,12 +74,8 @@ namespace Valens_Survey_Management_API.Controllers
             }
         }
 
-        /// <summary>
-        /// Create a new user 
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        // POST api/values
+        // Create new user
+        [AllowAnonymous]
         [HttpPost("create-user")]
         public async Task<IActionResult> AddUser([FromBody] UserCreateUpdateDto user)
         {
@@ -162,41 +101,8 @@ namespace Valens_Survey_Management_API.Controllers
         }
 
 
-        //[HttpPost]
-        //[Route("/login")]
-        //public Tuple<string, bool> Login(UserLogin dto)
-        //{
-        //    var user = _userRepo.GetUserByEmail(dto.Email);
-
-        //    if (user == null) return new Tuple<string, bool>("Invalid credentials null", false);
-
-        //    if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password)) return new Tuple<string, bool>("Invalid credentials verify", false);
-
-        //    var jwt = _jwtService.Generate(user.Id.ToString());
-
-        //    Response.Cookies.Append("jwt", jwt, new CookieOptions { HttpOnly = true });
-
-
-        //    return new Tuple<string, bool>(jwt, true);
-
-        //}
-
-
-        // check this
-        //[HttpGet("Login")]
-        //public User Login([FromBody] User user)
-        //{
-        //    return userService.Login(user);
-
-        //}
-
-        /// <summary>
-        /// Update a user
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="value"></param>
-
-        // PUT api/values/5
+        // Update user
+        //[Authorize]
         [HttpPut("update-user/{userId}")]
         public async Task<ActionResult<List<User>>> UpdateUser([FromBody] UserCreateUpdateDto user, int userId)
         {
@@ -215,11 +121,8 @@ namespace Valens_Survey_Management_API.Controllers
             }
         }
 
-        /// <summary>
-        /// Delete a user
-        /// </summary>
-        /// <param name="id"></param>
-        // DELETE api/values/5
+        // Delete user
+        //[Authorize]
         [HttpDelete("delete-user/{userId}")]
         public async Task<ActionResult> Delete(int userId)
         {
@@ -238,11 +141,6 @@ namespace Valens_Survey_Management_API.Controllers
 
         }
 
-
-        private static async Task<IEnumerable<User>> SelectAllUsers(SqlConnection connection)
-        {
-            return await connection.QueryAsync<User>("SELECT * FROM [dbo].[User]");
-        }
     }
 }
 

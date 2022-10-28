@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using ValensSurveyManagementAPI.Context;
 using ValensSurveyManagementAPI.Contracts;
 using ValensSurveyManagementAPI.Dto;
-using ValensSurveyManagementAPI.Helper;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using BC = BCrypt.Net.BCrypt;
 
@@ -57,16 +56,8 @@ namespace ValensSurveyManagementAPI.Repository
 
         public async Task<User> CreateUser([FromBody] UserCreateUpdateDto user)
         {
-            Console.Write("111111");
             User usr = new User();
             usr.FullName = user.FullName; usr.Email = user.Email; usr.Password = user.Password;
-
-            Console.WriteLine(usr);
-                //{ FullName = user.FullName, Email = user.Email, Password = user.Password };
-
-            //user.Password = JwtService.GenerateToken(usr);
-
-
 
             var query = "INSERT INTO [dbo].[User] (FullName, Email, Password, Role) " +
                         "VALUES (@FullName, @Email, @Password, @Role) SELECT CAST(SCOPE_IDENTITY() as int)";

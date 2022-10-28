@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ValensSurveyManagementAPI.Contracts;
 using ValensSurveyManagementAPI.Dto;
@@ -63,6 +65,7 @@ namespace ValensSurveyManagementAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("create-survey")]
         public async Task<IActionResult> AddSurvey([FromBody] SurveyCreateUpdateDto survey)
         {

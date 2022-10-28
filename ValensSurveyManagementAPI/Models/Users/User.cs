@@ -24,9 +24,6 @@ namespace ValensSurveyManagementAPI
         [Required]
         public String Role { get; set; }
 
-
-        //public List<User> Users { get; set; } = new List<User>();
-
     }
 
 
