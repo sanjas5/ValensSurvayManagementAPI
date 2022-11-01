@@ -43,7 +43,7 @@ namespace ValensSurveyManagementAPI.Repository
         }
 
 
-        public async Task<Survey> CreateSurvey([FromBody] SurveyCreateUpdateDto survey)
+        public async Task<Survey> CreateSurvey(SurveyCreateUpdateDto survey)
         {
 
             var query = "INSERT INTO [dbo].[Survey] (Title, StartAt, EndAt, Description, CreatedBy) " +
@@ -73,7 +73,7 @@ namespace ValensSurveyManagementAPI.Repository
             }
         }
 
-        public async Task<Survey> UpdateSurvey([FromBody] SurveyCreateUpdateDto survey, int id)
+        public async Task<Survey> UpdateSurvey(SurveyCreateUpdateDto survey, int id)
         {
 
             var query = "UPDATE [dbo].[Survey] SET Title = @Title, StartAt = @StartAt, EndAt = @EndAt, Description = @Description WHERE id = @Id";

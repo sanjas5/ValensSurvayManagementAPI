@@ -9,6 +9,8 @@ using System.Text;
 using ValensSurveyManagementAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,11 +19,37 @@ builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddSingleton<AccesTokenGenerator>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISurveyRepository, SurveyRepository>();
-builder.Services.AddScoped<IPasswordHasher, BycriptPasswordHasherRepository>();
 AuthenticationConfiguration authenticationConfiguration = new AuthenticationConfiguration();
 builder.Configuration.Bind("Authentication", authenticationConfiguration);
 builder.Services.AddSingleton(authenticationConfiguration);
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+
+});
+builder.Services.AddOptions();
+builder.Services.Configure<AuthenticationConfiguration>(builder.Configuration.GetSection("Authentication"));
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Authentication:AccessTokenSecret").Value)),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 
 builder.Services.AddControllers();
 

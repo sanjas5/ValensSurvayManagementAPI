@@ -13,6 +13,7 @@ using ValensSurveyManagementAPI.Models;
 namespace ValensSurveyManagementAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class SurveysController : ControllerBase
     {
@@ -48,7 +49,7 @@ namespace ValensSurveyManagementAPI.Controllers
         }
 
         // Get one survey
-        [Authorize(Roles = UserRole.DefaultUser)]
+        [Authorize(Roles = UserRole.Administrator)]
         [HttpGet("get-survey/{surveyId}")]
         public async Task<ActionResult<Survey>> GetOneSurvey(int surveyId)
         {

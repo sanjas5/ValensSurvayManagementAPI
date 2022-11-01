@@ -21,7 +21,7 @@ namespace ValensSurveyManagementAPI
 
         [Required]
         public String Role { get; set; }
-
+  
     }
 
 

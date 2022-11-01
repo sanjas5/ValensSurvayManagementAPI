@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +37,8 @@
     <None Remove="Helper\" />
     <None Remove="Models\Users\" />
     <None Remove="Models\Surveys\" />
+    <None Remove="Swashbuckle.AspNetCore.Filters" />
+    <None Remove="Util\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -46,5 +49,16 @@
     <Folder Include="Helper\" />
     <Folder Include="Models\Users\" />
     <Folder Include="Models\Surveys\" />
+    <Folder Include="Util\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Condition="'$(ExcludeConfigFilesFromBuildOutput)'!='true'" Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Models\Users\User.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 </Project>

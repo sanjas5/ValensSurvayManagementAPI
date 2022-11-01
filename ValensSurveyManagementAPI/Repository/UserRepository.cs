@@ -58,8 +58,8 @@ namespace ValensSurveyManagementAPI.Repository
         {
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
-            var query = "INSERT INTO [dbo].[User] (FullName, Email, Password, Role) " +
-                        "VALUES (@FullName, @Email, @Password, @Role) SELECT CAST(SCOPE_IDENTITY() as int)";
+            var query = @"INSERT INTO [dbo].[User] (FullName, Email, Password, Role)
+                        VALUES (@FullName, @Email, @Password, @Role) SELECT CAST(SCOPE_IDENTITY() as int)";
 
             var parameters = new DynamicParameters();
             parameters.Add("FullName", user.FullName, DbType.String);
@@ -83,7 +83,7 @@ namespace ValensSurveyManagementAPI.Repository
             }
         }
 
-        public async Task<User> UpdateUser([FromBody] UserCreateUpdateDto user, int id)
+        public async Task<User> UpdateUser(UserCreateUpdateDto user, int id)
         {
 
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);

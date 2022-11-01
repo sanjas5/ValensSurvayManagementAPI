@@ -18,7 +18,7 @@ using ValensSurveyManagementAPI.Models;
 
 namespace Valens_Survey_Management_API.Controllers
 {
-
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -102,7 +102,6 @@ namespace Valens_Survey_Management_API.Controllers
 
 
         // Update a user
-        [Authorize]
         [HttpPut("update-user/{userId}")]
         public async Task<ActionResult<List<User>>> UpdateUser([FromBody] UserCreateUpdateDto user, int userId)
         {
@@ -122,7 +121,6 @@ namespace Valens_Survey_Management_API.Controllers
         }
 
         // Delete a user
-        [Authorize]
         [HttpDelete("delete-user/{userId}")]
         public async Task<ActionResult> Delete(int userId)
         {
