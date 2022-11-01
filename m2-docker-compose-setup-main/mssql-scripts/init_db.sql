@@ -3,6 +3,29 @@
     FullName VARCHAR(256) NOT NULL,
     Email NVARCHAR(256) NOT NULL,
     Password NVARCHAR(MAX),
-    Role VARCHAR(32) NOT NULL  
+    Role VARCHAR(16) NOT NULL CHECK (Role in ('Administrator', 'DefaultUser')) 
 );
 
+CREATE TABLE [TEST_DATABASE].[dbo].[Survey] (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    Title VARCHAR(256) NOT NULL,
+    StartAt DATETIME,
+    EndAt DATETIME,
+    Description VARCHAR(MAX) NOT NULL,
+    CreatedBy VARCHAR(256) NOT NULL
+);
+
+
+CREATE TABLE [TEST_DATABASE].[dbo].[Question] (
+    Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    SurveyId INT NOT NULL,
+    Text VARCHAR(256) NOT NULL,
+    Type VARCHAR(256) NOT NULL
+);
+
+
+CREATE TABLE [TEST_DATABASE].[dbo].[MCAnswer] (
+    Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    questionId INT NOT NULL,
+    Text VARCHAR(256) NOT NULL,
+);
